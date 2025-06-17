@@ -1,64 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Entry</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='update.css') }}">
-    <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </head>
 <body>
     <div class="Content">
         <h1>Update Entry</h1>
+        {% if current_user.is_authenticated %}
+            <p>Welcome, {{ current_user.username }}! <a href="{{ url_for('logout') }}">Log Out</a> | <a href="{{ url_for('home') }}">Home</a></p>
+        {% else %}
+            <p><a href="{{ url_for('signup') }}">Sign Up</a> | <a href="{{ url_for('login') }}">Log In</a></p>
+        {% endif %}
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    <p class="{{ category }}">{{ message }}</p>
+                    <p class="message {{ category }}">{{ message }}</p>
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        <form action="{{ url_for('update', user_id=entry.user_id) }}" method="POST">
-            <input type="text" name="Purpose" value="{{ entry.purpose }}" required>
-            <input type="text" name="Username" value="{{ entry.user_id }}" required>
-            <div class="password-container">
-                <input type="password" name="Password" id="password-update" required minlength="6">
-                <button type="button" id="generate-password-update" class="generate-btn">Generate Password</button>
-                <label class="show-password">
-                    <input type="checkbox" id="show-password-update"> Show Password
-                </label>
-                <span class="password-error"></span>
-            </div>
-            <input type="submit" value="Update">
-        </form>
-        <a href="{{ url_for('home') }}">Return to Home</a>
+        {% if current_user.is_authenticated %}
+            <form method="POST" action="{{ url_for('update', entry_username=entry.entry_username) }}">
+                <input type="text" name="Purpose" value="{{ entry.purpose }}" required>
+                <input type="text" name="Username" value="{{ entry.entry_username }}" required>
+                <input type="password" name="Password" id="password" required>
+                <div class="password-container">
+                    <button type="button" class="generate-btn">Generate Password</button>
+                    <label class="show-password">
+                        <input type="checkbox"> Show Password
+                    </label>
+                </div>
+                <input type="submit" value="Update Entry">
+            </form>
+            <a href="{{ url_for('home') }}">Return to Home</a>
+        {% else %}
+            <p>Please log in to update entries.</p>
+        {% endif %}
     </div>
 </body>
 </html>
-<!--
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Update Entry</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='update.css') }}">
-</head>
-<body>
-    <div class="Content">
-        <h1>Update Entry</h1>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <p class="{{ category }}">{{ message }}</p>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        <form action="{{ url_for('update', user_id=entry.user_id) }}" method="POST">
-            <input type="text" name="Purpose" value="{{ entry.purpose }}" required>
-            <input type="text" name="Username" value="{{ entry.user_id }}" required>
-            <input type="password" name="Password" required>
-            <input type="submit" value="Update">
-        </form>
-        <a href="{{ url_for('home') }}">Return to Home</a>
-    </div>
-</body>
-</html>
-
--->

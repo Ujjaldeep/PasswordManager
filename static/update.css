@@ -132,7 +132,7 @@ input[type="checkbox"]+span:before {
 }
   
 input[type="checkbox"]:checked+span:before {
-    background-image: url('https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/collection/build/ionicons/svg/ios-checkmark.svg');
+    background-image: tickbox.svg;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 25px;

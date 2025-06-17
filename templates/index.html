@@ -24,9 +24,10 @@
         {% endwith %}
         {% if current_user.is_authenticated %}
             <form method="POST" action="{{ url_for('home') }}">
-                <input type="text" name="Purpose" placeholder="Purpose" required>
+                <input type="text" name="Purpose" placeholder="Purpose Ex. GMail" required>
                 <input type="text" name="Username" placeholder="Username" required>
-                <input type="password" name="Password" id="password" required>
+                <input type="password" name="Password" id="password" placeholder="Password" required>
+                <br>
                 <div class="password-container">
                     <button type="button" class="generate-btn">Generate Password</button>
                     <label class="show-password">
@@ -49,14 +50,16 @@
                             <td>{{ da[1] }}</td>
                             <td>
                                 <span class="password-hidden" data-password="{{ da[2] }}">********</span>
+                                <br>
                                 <label>
-                                    <input type="checkbox" class="show-password-table-checkbox" data-index="{{ loop.index }}"> Show
+                                    <input type="checkbox" class="show-password-table-checkbox" data-index="{{ loop.index }}">
+                                        <span>Show</span>
                                 </label>
                             </td>
                             <td>
-                                <a href="{{ url_for('update', entry_username=da[1]) }}">Update</a>
+                                <a href="{{ url_for('update', entry_username=da[1]) }}" class="update-button">Update</a>
                                 {% if da[1] %}
-                                    <a href="{{ url_for('delete', entry_username=da[1]) }}">Delete</a>
+                                    <a href="{{ url_for('delete', entry_username=da[1]) }}" class="delete-button">Delete</a>
                                 {% else %}
                                     No valid username
                                 {% endif %}

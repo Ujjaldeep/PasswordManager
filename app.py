@@ -1,21 +1,29 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, abort
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask_bcrypt import Bcrypt
+from database import db, User, PasswordEntry
 from encdec import encryptor, decryptor
 import logging
 import re
+import uuid
 
 logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///password_data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'your-secret-key'
-db = SQLAlchemy(app)
+app.config['SECRET_KEY'] = '8ba678f2332619424e00a1b97ae2f8dc'  # Replace with a secure key
+db.init_app(app)
+bcrypt = Bcrypt(app)
 
-class PasswordEntry(db.Model):
-    purpose = db.Column(db.String(100))
-    user_id = db.Column(db.Text, primary_key=True)
-    data = db.Column(db.Text)
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 with app.app_context():
     db.create_all()
@@ -25,87 +33,138 @@ def page_not_found(e):
     logging.error(f"404 error: {request.url}")
     return render_template('404.html'), 404
 
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        if not username or not password:
+            flash('All fields are required.', 'error')
+            return redirect(url_for('signup'))
+        if not re.match(r'^[a-zA-Z0-9_@.]+$', username):
+            flash('Invalid username: Use only letters, numbers, underscores, @, or .', 'error')
+            return redirect(url_for('signup'))
+        if len(password) < 6 or ' ' in password or not re.match(r'^[A-Za-z0-9!@#$%_+.\-]+$', password):
+            flash('Password must be at least 6 characters, no spaces, and only !@#$%_+.-, alphabets, numbers.', 'error')
+            return redirect(url_for('signup'))
+        if User.query.filter_by(username=username).first():
+            flash('Username already exists.', 'error')
+            return redirect(url_for('signup'))
+        
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+        unique_key = str(uuid.uuid4())
+        user = User(username=username, password=hashed_password, unique_key=unique_key)
+        db.session.add(user)
+        db.session.commit()
+        
+        flash(f'Account created! Your unique key is: {unique_key}. Save it securely!', 'success')
+        return redirect(url_for('login'))
+    
+    return render_template('signup.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        unique_key = request.form['unique_key']
+        
+        user = User.query.filter_by(username=username).first()
+        if user and bcrypt.check_password_hash(user.password, password) and user.unique_key == unique_key:
+            login_user(user)
+            flash('Logged in successfully!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Invalid username, password, or unique key.', 'error')
+            return redirect(url_for('login'))
+    
+    return render_template('login.html')
+
 @app.route('/', methods=['GET', 'POST'])
+@login_required
 def home():
     if request.method == 'POST':
         purpose = request.form['Purpose'].strip()
-        uid = request.form['Username'].strip()
+        entry_username = request.form['Username'].strip()
         pwd = request.form['Password'].strip()
 
-        if not purpose or not uid or not pwd:
+        if not purpose or not entry_username or not pwd:
             flash("All fields are required", "error")
-            return redirect('/')
-        if not re.match(r'^[a-zA-Z0-9_@.]+$', uid):
+            return redirect(url_for('home'))
+        if not re.match(r'^[a-zA-Z0-9_@.]+$', entry_username):
             flash("Invalid username: Use only letters, numbers, underscores, @, or .", "error")
-            return redirect('/')
+            return redirect(url_for('home'))
         if len(pwd) < 6:
             flash("Password must be at least 6 characters long", "error")
-            return redirect('/')
+            return redirect(url_for('home'))
         if ' ' in pwd:
             flash("Password cannot contain spaces", "error")
-            return redirect('/')
-        if not re.match(r'^[A-Za-z0-9!@#$%&_+.\-]+$', pwd):
-            flash("Password can only contain !@#$%&_+.-, alphabets, and numbers", "error")
+            return redirect(url_for('home'))
+        if not re.match(r'^[A-Za-z0-9!@#$%_+.\-]+$', pwd):
+            flash("Password can only contain !@#$%_+.-, alphabets, and numbers", "error")
             logging.warning(f"Invalid password characters detected: {pwd}")
-            return redirect('/')
-        if PasswordEntry.query.get(uid):
-            flash("Username already exists", "error")
-            return redirect('/')
+            return redirect(url_for('home'))
+        if PasswordEntry.query.filter_by(user_id=current_user.id, entry_username=entry_username).first():
+            flash("Username already exists for this user", "error")
+            return redirect(url_for('home'))
 
-        enc_data = encryptor(uid, pwd)
-        new_entry = PasswordEntry(purpose=purpose, user_id=uid, data=enc_data)
+        enc_data = encryptor(entry_username, pwd)
+        new_entry = PasswordEntry(purpose=purpose, user_id=current_user.id, entry_username=entry_username, data=enc_data)
         try:
             db.session.add(new_entry)
             db.session.commit()
             flash("Entry added successfully", "success")
         except Exception as e:
-            logging.error(f"Error adding entry {uid}: {e}")
+            logging.error(f"Error adding entry {entry_username}: {e}")
             flash(f"Error saving entry: {e}", "error")
-        return redirect('/')
+        return redirect(url_for('home'))
     else:
-        entries = PasswordEntry.query.all()
+        entries = PasswordEntry.query.filter_by(user_id=current_user.id).all()
         datalist = []
         for e in entries:
             try:
                 dec = decryptor(e.data)
-                if not re.match(r'^[A-Za-z0-9!@#$%&_+.\-]+$', dec[1]):
-                    logging.warning(f"Invalid characters in decrypted password for user_id {e.user_id}: {dec[1]}")
-                    datalist.append([e.purpose, e.user_id, "Invalid password characters"])
+                if not re.match(r'^[A-Za-z0-9!@#$%_+.\-]+$', dec[1]):
+                    logging.warning(f"Invalid characters in decrypted password for entry_username {e.entry_username}: {dec[1]}")
+                    datalist.append([e.purpose, e.entry_username, "Invalid password characters"])
                 else:
-                    datalist.append([e.purpose, e.user_id, dec[1]])
+                    datalist.append([e.purpose, e.entry_username, dec[1]])
             except Exception as e:
-                logging.error(f"Error decrypting for user_id {e.user_id}: {e}")
-                datalist.append([e.purpose, e.user_id, "Decryption failed"])
+                logging.error(f"Error decrypting for entry_username {e.entry_username}: {e}")
+                datalist.append([e.purpose, e.entry_username, "Decryption failed"])
         return render_template('index.html', datalist=datalist)
 
-@app.route('/delete/<string:user_id>')
-def delete(user_id):
-    if not user_id:
-        logging.error("Empty user_id in delete route")
+@app.route('/delete/<string:entry_username>')
+@login_required
+def delete(entry_username):
+    if not entry_username:
+        logging.error("Empty entry_username in delete route")
         abort(404)
-    del_cred = PasswordEntry.query.get_or_404(user_id)
+    del_cred = PasswordEntry.query.filter_by(user_id=current_user.id, entry_username=entry_username).first_or_404()
     try:
         db.session.delete(del_cred)
         db.session.commit()
-        flash(f"Deleted entry for {user_id}", "success")
+        flash(f"Deleted entry for {entry_username}", "success")
         return redirect(url_for('home'))
     except Exception as e:
-        logging.error(f"Error deleting user_id {user_id}: {e}")
+        logging.error(f"Error deleting entry_username {entry_username}: {e}")
         flash(f"Error deleting entry: {e}", "error")
         return redirect(url_for('home'))
 
-@app.route('/update/<string:user_id>', methods=['GET', 'POST'])
-def update(user_id):
-    entry = PasswordEntry.query.get_or_404(user_id)
+@app.route('/update/<string:entry_username>', methods=['GET', 'POST'])
+@login_required
+def update(entry_username):
+    entry = PasswordEntry.query.filter_by(user_id=current_user.id, entry_username=entry_username).first_or_404()
     if request.method == 'POST':
         purpose = request.form['Purpose'].strip()
-        new_user_id = request.form['Username'].strip()
+        new_entry_username = request.form['Username'].strip()
         pwd = request.form['Password'].strip()
 
-        if not purpose or not new_user_id or not pwd:
+        if not purpose or not new_entry_username or not pwd:
             flash("All fields are required", "error")
             return render_template('update.html', entry=entry)
-        if not re.match(r'^[a-zA-Z0-9_@.]+$', new_user_id):
+        if not re.match(r'^[a-zA-Z0-9_@.]+$', new_entry_username):
             flash("Invalid username: Use only letters, numbers, underscores, @, or .", "error")
             return render_template('update.html', entry=entry)
         if len(pwd) < 6:
@@ -114,31 +173,38 @@ def update(user_id):
         if ' ' in pwd:
             flash("Password cannot contain spaces", "error")
             return render_template('update.html', entry=entry)
-        if not re.match(r'^[A-Za-z0-9!@#$%&_+.\-]+$', pwd):
-            flash("Password can only contain !@#$%&_+.-, alphabets, and numbers", "error")
+        if not re.match(r'^[A-Za-z0-9!@#$%_+.\-]+$', pwd):
+            flash("Password can only contain !@#$%_+.-, alphabets, and numbers", "error")
             logging.warning(f"Invalid password characters detected: {pwd}")
             return render_template('update.html', entry=entry)
-        if new_user_id != user_id and PasswordEntry.query.get(new_user_id):
-            flash("Username already exists", "error")
+        if new_entry_username != entry_username and PasswordEntry.query.filter_by(user_id=current_user.id, entry_username=new_entry_username).first():
+            flash("Username already exists for this user", "error")
             return render_template('update.html', entry=entry)
 
         try:
-            if new_user_id != user_id:
+            if new_entry_username != entry_username:
                 db.session.delete(entry)
-                enc_data = encryptor(new_user_id, pwd)
-                new_entry = PasswordEntry(purpose=purpose, user_id=new_user_id, data=enc_data)
+                enc_data = encryptor(new_entry_username, pwd)
+                new_entry = PasswordEntry(purpose=purpose, user_id=current_user.id, entry_username=new_entry_username, data=enc_data)
                 db.session.add(new_entry)
             else:
                 entry.purpose = purpose
-                entry.data = encryptor(new_user_id, pwd)
+                entry.data = encryptor(new_entry_username, pwd)
             db.session.commit()
             flash("Entry updated successfully", "success")
             return redirect(url_for('home'))
         except Exception as e:
-            logging.error(f"Error updating user_id {user_id} to {new_user_id}: {e}")
+            logging.error(f"Error updating entry_username {entry_username} to {new_entry_username}: {e}")
             flash(f"Error updating entry: {e}", "error")
             return render_template('update.html', entry=entry)
     return render_template('update.html', entry=entry)
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('Logged out successfully!', 'success')
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     with app.app_context():

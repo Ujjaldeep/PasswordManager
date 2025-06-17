@@ -1,217 +1,150 @@
 /* static/update.css */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f6f8;
+    font-family: 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f3f4f6;
     margin: 0;
-    padding: 40px;
-    display: flex;
-    justify-content: center;
+    padding: 0;
+    color: #333;
+    font-weight: 600;
 }
 
 .Content {
-    width: 90%;
     max-width: 500px;
-    background: rgb(215,215,215);
+    margin: 60px auto;
     padding: 30px;
+    background: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.271);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 h1 {
     text-align: center;
-    margin-bottom: 30px;
-    color: #333;
-    font-size: 24px;
+    color: #111827;
+    font-family: 'Segoe UI';
+    font-size: 48px;
+    font-weight: bold;
+}
+
+a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 550;
+    margin: 0 5px;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
+    margin-top: 20px;
 }
 
 input[type="text"],
-input[type="password"] {
-    width: 100%;
+input[type="password"],
+input[type="submit"] {
     padding: 10px;
-    margin: 5px 0;
     border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 16px;
-}
-
-input[type="text"]:disabled {
-    background-color: #e9ecef;
-    cursor: not-allowed;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 input[type="submit"] {
-    padding: 10px 20px;
-    margin-top: 10px;
-    background-color: #325578;
-    color: rgb(215, 215, 215);
+    background-color: #2563eb;
+    color: white;
     border: none;
-    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 16px;
+    transition: background 0.2s ease;
+    font-weight: 600;
+    font-size: medium;
 }
 
 input[type="submit"]:hover {
-    background-color: #34495e;
+    background-color: #1e40af;
 }
 
 .password-container {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 14px;
 }
 
 .generate-btn {
-    padding: 8px 15px;
-    background-color: #3498db;
-    color: rgb(215, 215, 215);
+    padding: 8px 12px;
+    background-color: #0b6634;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
+    color: white;
     cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 14px;
+    font-weight: 600
 }
 
 .generate-btn:hover {
-    background-color: #2980b9;
+    background-color: #0b6634;
 }
 
-.show-password {
-    font-size: 14px;
-    color: #333;
-    display: flex;
-    align-items: right;
-    gap: 7.5 px;
-}
-
-p.error, p.success, .password-error {
-    text-align: center;
+.message {
+    padding: 10px;
+    border-radius: 6px;
     margin: 10px 0;
-    padding: 10px;
-    border-radius: 6px;
     font-size: 14px;
 }
 
-p.error, .password-error {
-    background-color: #f8d7da;
-    color: #721c24;
+.message.success {
+    background-color: #d1fae5;
+    color: #065f46;
 }
 
-p.success {
-    background-color: #d4edda;
-    color: #155724;
+.message.error {
+    background-color: #fee2e2;
+    color: #991b1b;
 }
 
-a {
-    color: #3498db;
-    text-decoration: none;
-    text-align: center;
-    display: block;
-    margin-top: 15px;
-    font-size: 14px;
+input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
 }
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f6f8;
-    margin: 0;
-    padding: 40px;
-    display: flex;
-    justify-content: center;
-}
-
-.Content {
-    width: 90%;
-    max-width: 500px; // Slightly narrower than index.html for form focus //
-    background: rgb(215,215,215);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.271);
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #333;
-    font-size: 24px; // Matches h1 in index.html //
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; // Consistent spacing between inputs //
-}
-
-input[type="text"],
-input[type="password"] {
-    width: 100%; // Full-width inputs for better form layout //
-    padding: 10px;
-    margin: 5px 0; // Adjusted for vertical stacking //
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 16px;
-}
-
-input[type="text"]:disabled {
-    background-color: #e9ecef;
-    cursor: not-allowed;
-}
-
-input[type="submit"] {
-    padding: 10px 20px;
-    margin-top: 10px;
-    background-color: #325578;
-    color: rgb(215, 215, 215);
-    border: none;
-    border-radius: 6px;
+  
+  input[type="checkbox"]+span {
     cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 16px;
+    font: 16px sans-serif;
+    color: black;
 }
 
-input[type="submit"]:hover {
-    background-color: #34495e;
+input[type="checkbox"]+span:before {
+    content: '';
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 3px;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 0.5em;
+    margin-top: 0.5em;
+    vertical-align: -2px;
 }
-
-p.error, p.success {
-    text-align: center;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 6px;
-    font-size: 14px;
+  
+input[type="checkbox"]:checked+span:before {
+    background-image: url('https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/collection/build/ionicons/svg/ios-checkmark.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 25px;
+    border-radius: 2px;
+    background-color: #bad7ff;
+    color: white;
 }
-
-p.error {
-    background-color: #f8d7da;
-    color: #721c24;
+  
+input[type="checkbox"]:focus+span:before,
+input[type="checkbox"]:not(:disabled)+span:hover:before {
+    box-shadow: 0px 0px 0px 2px rgba(0, 150, 255, 1);
+    outline-color: transparent; 
+    outline-width: 2px;
+    outline-style: dotted;
 }
-
-p.success {
-    background-color: #d4edda;
-    color: #155724;
-}
-
-a {
-    color: #3498db;
-    text-decoration: none;
-    text-align: center;
-    display: block;
-    margin-top: 15px;
-    font-size: 14px;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-*/

@@ -1,0 +1,217 @@
+/* static/update.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.Content {
+    width: 90%;
+    max-width: 500px;
+    background: rgb(215,215,215);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.271);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 24px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+input[type="text"]:disabled {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #325578;
+    color: rgb(215, 215, 215);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #34495e;
+}
+
+.password-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.generate-btn {
+    padding: 8px 15px;
+    background-color: #3498db;
+    color: rgb(215, 215, 215);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+}
+
+.generate-btn:hover {
+    background-color: #2980b9;
+}
+
+.show-password {
+    font-size: 14px;
+    color: #333;
+    display: flex;
+    align-items: right;
+    gap: 7.5 px;
+}
+
+p.error, p.success, .password-error {
+    text-align: center;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+p.error, .password-error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+p.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+a {
+    color: #3498db;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* 
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.Content {
+    width: 90%;
+    max-width: 500px; // Slightly narrower than index.html for form focus //
+    background: rgb(215,215,215);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.271);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 24px; // Matches h1 in index.html //
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; // Consistent spacing between inputs //
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%; // Full-width inputs for better form layout //
+    padding: 10px;
+    margin: 5px 0; // Adjusted for vertical stacking //
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+input[type="text"]:disabled {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #325578;
+    color: rgb(215, 215, 215);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #34495e;
+}
+
+p.error, p.success {
+    text-align: center;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+p.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+p.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+a {
+    color: #3498db;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+*/

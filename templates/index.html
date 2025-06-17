@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
+    </head>
+    <body>
+        <div class="Content">
+            <h1>Password Manager</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <table>
+                <tr>
+                    <th>Purpose</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Options</th>
+                </tr>
+                {% for da in datalist %}
+                <tr>
+                    <td>{{ da[0] }}</td>
+                    <td>{{ da[1] }}</td>
+                    <td>
+                        <span class="password-hidden" data-password="{{ da[2]|e }}">********</span>
+                        <label class="show-password-table">
+                            <input type="checkbox" class="show-password-table-checkbox" data-index="{{ loop.index0 }}"> Show
+                        </label>
+                    </td>
+                    <td>
+                        <a href="{{ url_for('update', user_id=da[1]) }}">Update</a>
+                        <br>
+                        {% if da[1] %}
+                            <a href="{{ url_for('delete', user_id=da[1]) }}">Delete</a>
+                        {% else %}
+                            <span>No valid user_id</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <form action="/" method="POST">
+                <input type="text" name="Purpose" class="Purpose" placeholder="Purpose Ex. Gmail,etc" required>
+                <input type="text" name="Username" class="Username" placeholder="Username" required>
+                <div class="password-container">
+                    <input type="password" name="Password" id="password-index" class="Password" placeholder="Password" required minlength="6">
+                    <button type="button" id="generate-password-index" class="generate-btn">Generate Password</button>
+                    <label class="show-password">
+                        <input type="checkbox" id="show-password-index"> Show Password
+                    </label>
+                    <span class="password-error"></span>
+                </div>
+                <input type="submit" value="Save Credentials">
+            </form>
+        </div>
+    </body>
+</html>
+<!--
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    </head>
+    <body>
+        <div class="Content">
+            <h1>Password Manager</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <table>
+                <tr>
+                    <th>Purpose</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Options</th>
+                </tr>
+                {% for da in datalist %}
+                <tr>
+                    <td>{{ da[0] }}</td>
+                    <td>{{ da[1] }}</td>
+                    <td>{{ da[2] }}</td>
+                    <td>
+                        <a href="{{ url_for('update', user_id=da[1]) }}">Update</a>
+                        <br>
+                        {% if da[1] %}
+                            <a href="{{ url_for('delete', user_id=da[1]) }}">Delete</a>
+                        {% else %}
+                            <span>No valid user_id</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <form action="/" method="POST">
+                <input type="text" name="Purpose" class="Purpose" placeholder="Purpose Ex. Gmail,etc" required>
+                <input type="text" name="Username" class="Username" placeholder="Username" required>
+                <input type="password" name="Password" class="Password" placeholder="Password" required>
+                <input type="submit" value="Save Credentials">
+            </form>
+        </div>
+    </body>
+</html>
+-->

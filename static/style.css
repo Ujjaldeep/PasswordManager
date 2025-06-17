@@ -1,0 +1,206 @@
+
+/* static/style.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.Content {
+    width: 90%;
+    max-width: 900px;
+    background: rgb(215,215,215);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.271);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #325578;
+    color: rgb(215, 215, 215);
+}
+
+td a {
+    color: #3498db;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
+form input[type="text"],
+form input[type="password"] {
+    width: calc(33.3% - 14px);
+    padding: 10px;
+    margin: 5px 7px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+form input[type="submit"] {
+    padding: 10px 20px;
+    margin-top: 10px;
+    display: block;
+    background-color: #325578;
+    color: rgb(215, 215, 215);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form input[type="submit"]:hover {
+    background-color: #34495e;
+}
+
+.password-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 5px 7px;
+}
+
+.generate-btn {
+    padding: 8px 15px;
+    background-color: #3498db;
+    color: rgb(215, 215, 215);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+}
+
+.generate-btn:hover {
+    background-color: #2980b9;
+}
+
+.show-password, .show-password-table {
+    font-size: 14px;
+    color: #333;
+    display: flex;
+    align-items: right;
+    gap: 5px;
+}
+
+.password-hidden {
+    color: #333;
+}
+
+p.error, p.success, .password-error {
+    text-align: center;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+p.error, .password-error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+p.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+/*
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.Content {
+    width: 90%;
+    max-width: 900px;
+    background: rgb(215,215,215);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.271);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #325578;
+    color: rgb(215, 215, 215);
+}
+
+td a {
+    color: #3498db;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
+form input[type="text"],
+form input[type="password"] {
+    width: calc(33.3% - 14px);
+    padding: 10px;
+    margin: 5px 7px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+form input[type="submit"] {
+    padding: 10px 20px;
+    margin-top: 10px;
+    display: block;
+    background-color: #325578;
+    color: rgb(215, 215, 215);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form input[type="submit"]:hover {
+    background-color: #34495e;
+}
+*/

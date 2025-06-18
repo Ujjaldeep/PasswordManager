@@ -177,7 +177,7 @@ input[type="checkbox"] {
   /* Checked checkbox style (in this case the background is green #e7ffba, change this to change the color) */
   input[type="checkbox"]:checked+span:before {
     /* NOTE: Replace the url with a path to an SVG of a checkmark to get a checkmark icon */
-    background-image: tickbox.svg;
+    background-image: url('tickbox.svg');
     background-repeat: no-repeat;
     background-position: center;
     /* The size of the checkmark icon, you may/may not need this */

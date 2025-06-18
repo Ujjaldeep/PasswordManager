@@ -23,16 +23,19 @@
             {% endif %}
         {% endwith %}
         {% if current_user.is_authenticated %}
+        <br>
             <form method="POST" action="{{ url_for('update', entry_username=entry.entry_username) }}">
                 <input type="text" name="Purpose" value="{{ entry.purpose }}" required>
                 <input type="text" name="Username" value="{{ entry.entry_username }}" required>
                 <input type="password" name="Password" id="password" required>
+                <br>
                 <div class="password-container">
                     <button type="button" class="generate-btn">Generate Password</button>
                     <label class="show-password">
                         <input type="checkbox"><span></span>Show Password
                     </label>
                 </div>
+                <br>
                 <input type="submit" value="Update Entry">
             </form>
             <a href="{{ url_for('home') }}">Return to Home</a>

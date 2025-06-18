@@ -1,7 +1,7 @@
 /* static/update.css */
 body {
     font-family: 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f3f4f6;
+    background-color: #EEEEF1;
     margin: 0;
     padding: 0;
     color: #333;
@@ -12,7 +12,7 @@ body {
     max-width: 500px;
     margin: 60px auto;
     padding: 30px;
-    background: #fff;
+    background: #EEEEF1;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -20,14 +20,14 @@ body {
 
 h1 {
     text-align: center;
-    color: #111827;
+    color: #080D3D;
     font-family: 'Segoe UI';
     font-size: 48px;
     font-weight: bold;
 }
 
 a {
-    color: #2563eb;
+    color: #4A71CC;
     text-decoration: none;
     font-weight: 550;
     margin: 0 5px;
@@ -48,15 +48,16 @@ input[type="text"],
 input[type="password"],
 input[type="submit"] {
     padding: 10px;
-    border: 1px solid #ccc;
+    background: #EEEEF1;
+    border: 1px solid #747C82;
     border-radius: 8px;
     font-size: 14px;
     font-weight: 600;
 }
 
 input[type="submit"] {
-    background-color: #2563eb;
-    color: white;
+    background-color: #003776;
+    color: #EEEEF1;
     border: none;
     cursor: pointer;
     transition: background 0.2s ease;
@@ -65,7 +66,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #1e40af;
+    background-color: #4A71CC;
 }
 
 .password-container {
@@ -81,7 +82,7 @@ input[type="submit"]:hover {
     background-color: #0b6634;
     border: none;
     border-radius: 8px;
-    color: white;
+    color: #EEEEF1;
     cursor: pointer;
     font-weight: 600
 }
@@ -111,15 +112,17 @@ input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     z-index: -1;
-}
+  }
   
+  /* Text color for the label */
   input[type="checkbox"]+span {
     cursor: pointer;
     font: 16px sans-serif;
-    color: black;
-}
-
-input[type="checkbox"]+span:before {
+    color: inherit;
+  }
+  
+  /* Checkbox un-checked style */
+  input[type="checkbox"]+span:before {
     content: '';
     border: 1px solid rgb(0, 0, 0);
     border-radius: 3px;
@@ -129,22 +132,33 @@ input[type="checkbox"]+span:before {
     margin-right: 0.5em;
     margin-top: 0.5em;
     vertical-align: -2px;
-}
+  }
   
-input[type="checkbox"]:checked+span:before {
-    background-image: tickbox.svg;
+  /* Checked checkbox style (in this case the background is green #e7ffba, change this to change the color) */
+  input[type="checkbox"]:checked+span:before {
+    /* NOTE: Replace the url with a path to an SVG of a checkmark to get a checkmark icon */
+    background-image: url('https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/collection/build/ionicons/svg/ios-checkmark.svg');
     background-repeat: no-repeat;
     background-position: center;
+    /* The size of the checkmark icon, you may/may not need this */
     background-size: 25px;
     border-radius: 2px;
     background-color: #bad7ff;
     color: white;
-}
+  }
   
-input[type="checkbox"]:focus+span:before,
-input[type="checkbox"]:not(:disabled)+span:hover:before {
+  /* Adding a dotted border around the active tabbed-into checkbox */
+  input[type="checkbox"]:focus+span:before,
+  input[type="checkbox"]:not(:disabled)+span:hover:before {
+    /* Visible in the full-color space */
     box-shadow: 0px 0px 0px 2px rgba(0, 150, 255, 1);
-    outline-color: transparent; 
+  
+    /* Visible in Windows high-contrast themes
+       box-shadow will be hidden in these modes and
+       transparency will not be hidden in high-contrast
+       thus box-shadow will not show but the outline will
+       providing accessibility */
+    outline-color: transparent; /*switch to transparent*/
     outline-width: 2px;
     outline-style: dotted;
-}
+    }

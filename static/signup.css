@@ -1,35 +1,36 @@
-/* static/signup.css */
+/* signup.css */
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f3f4f6;
+    font-family: 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #EEEEF1;
     margin: 0;
     padding: 0;
-    color: #333;
+    color: #080D3D;
+    font-weight: 600
 }
 
 .Content {
     max-width: 400px;
     margin: 60px auto;
     padding: 30px;
-    background: #fff;
+    background: #EEEEF1;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     text-align: center;
 }
 
 h1 {
     text-align: center;
-    color: #111827;
+    color: #080D3D;
     font-family: 'Segoe UI';
     font-size: 48px;
     font-weight: bold;
 }
 
 a {
-    color: #2563eb;
+    color: #4A71CC;
     text-decoration: none;
-    font-weight: 500;
+    margin: 0 5px;
 }
 
 a:hover {
@@ -47,22 +48,25 @@ input[type="text"],
 input[type="password"],
 input[type="submit"] {
     padding: 10px;
-    border: 1px solid #ccc;
+    background: #EEEEF1;
+    border: 2px solid #747C82;
     border-radius: 8px;
     font-size: 14px;
+    font-weight: 600;
 }
 
 input[type="submit"] {
-    background-color: #2563eb;
-    color: white;
+    background-color: #003776;
+    color: #EEEEF1;
     border: none;
     cursor: pointer;
     transition: background 0.2s ease;
-    font-weight: 720;
+    font-weight: 600;
+    font-size: medium;
 }
 
 input[type="submit"]:hover {
-    background-color: #1e40af;
+    background-color: #003776;
 }
 
 .message {

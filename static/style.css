@@ -181,7 +181,7 @@ input[type="checkbox"] {
     background-repeat: no-repeat;
     background-position: center;
     /* The size of the checkmark icon, you may/may not need this */
-    background-size: 25px;
+    background-size: 15px;
     border-radius: 2px;
     background-color: #bad7ff;
     color: white;

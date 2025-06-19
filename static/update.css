@@ -1,40 +1,76 @@
-/* static/update.css */
+/* update.css */
+
+:root{
+    --bg: #EEEEF1;
+    --button_color: #4A71CC;
+    --heading_color: #080D3D;
+    --text_or_border: #747C82;
+    --header_color: #003776;
+    --shadow_color: rgba(0,0,0,0.5);
+    --success_bg: #d1fae5;
+    --success_font: #065f46;
+    --error_bg: #fee2e2;
+    --error_font: #991b1b;
+    --gen_button_color: #0b6634;
+    --show_pwd_color:#080D3D;;
+}
+[theme="dark"]{
+    --bg: #11110E;
+    --button_color: #B58E33;
+    --heading_color: #F7F2C2;
+    --text_or_border: rgb(212, 215, 218);
+    --header_color: #FFC889;
+    --shadow_color: #4d3c28;
+    --success_bg: #065f46;
+    --success_font: #d1fae5;
+    --error_bg: #991b1b;
+    --error_font: #fee2e2;
+    --gen_button_color: #99f4b7;
+    --show_pwd_color: #F7F2C2;
+}
+
+
+
 body {
     font-family: 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #EEEEF1;
+    background-color: var(--bg);
     margin: 0;
     padding: 0;
-    color: #333;
+    color: var(--text_or_border);
     font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .Content {
     max-width: 500px;
     margin: 60px auto;
     padding: 30px;
-    background: #EEEEF1;
+    background: var(--bg);
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    box-shadow: 0 4px 12px var(--shadow_color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1 {
     text-align: center;
-    color: #080D3D;
+    color: var(--heading_color);
     font-family: 'Segoe UI';
     font-size: 48px;
     font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a {
-    color: #4A71CC;
+    color: var(--button_color);
     text-decoration: none;
-    font-weight: 550;
     margin: 0 5px;
+    font-weight: 550;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a:hover {
     text-decoration: underline;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 form {
@@ -48,25 +84,29 @@ input[type="text"],
 input[type="password"],
 input[type="submit"] {
     padding: 10px;
-    background: #EEEEF1;
-    border: 1px solid #747C82;
+    background: var(--bg);
+    color: var(--heading_color);
+    border: 2px solid var(--text_or_border);
     border-radius: 8px;
     font-size: 14px;
     font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 input[type="submit"] {
-    background-color: #003776;
-    color: #EEEEF1;
+    background-color: var(--button_color);
+    color: var(--bg);
     border: none;
     cursor: pointer;
     transition: background 0.2s ease;
     font-weight: 600;
     font-size: medium;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 input[type="submit"]:hover {
-    background-color: #4A71CC;
+    background-color: var(--button_color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .password-container {
@@ -79,16 +119,18 @@ input[type="submit"]:hover {
 
 .generate-btn {
     padding: 8px 12px;
-    background-color: #0b6634;
+    background-color: var(--gen_button_color);
     border: none;
     border-radius: 8px;
-    color: #EEEEF1;
+    color: var(--bg);
     cursor: pointer;
-    font-weight: 600
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .generate-btn:hover {
-    background-color: #0b6634;
+    background-color: var(--gen_button_color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .message {
@@ -99,32 +141,31 @@ input[type="submit"]:hover {
 }
 
 .message.success {
-    background-color: #d1fae5;
-    color: #065f46;
+    background-color: var(--success_bg);
+    color: var(--success_font);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .message.error {
-    background-color: #fee2e2;
-    color: #991b1b;
+    background-color: var(--error_bg);
+    color: var(--error_font);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     z-index: -1;
-  }
-  
-  /* Text color for the label */
-  input[type="checkbox"]+span {
+}
+input[type="checkbox"]+span {
     cursor: pointer;
     font: 16px sans-serif;
-    color: inherit;
-  }
-  
-  /* Checkbox un-checked style */
-  input[type="checkbox"]+span:before {
+    color: var(--show_pwd_color);
+}
+
+input[type="checkbox"]+span:before {
     content: '';
-    border: 1px solid rgb(0, 0, 0);
+    border: 1px solid var(--text_or_border);
     border-radius: 3px;
     display: inline-block;
     width: 16px;
@@ -132,33 +173,71 @@ input[type="checkbox"] {
     margin-right: 0.5em;
     margin-top: 0.5em;
     vertical-align: -2px;
-  }
+}
   
-  /* Checked checkbox style (in this case the background is green #e7ffba, change this to change the color) */
-  input[type="checkbox"]:checked+span:before {
-    /* NOTE: Replace the url with a path to an SVG of a checkmark to get a checkmark icon */
-    background-image: url('https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/collection/build/ionicons/svg/ios-checkmark.svg');
+input[type="checkbox"]:checked+span:before {
+    background-image: url('tickmark.svg');
     background-repeat: no-repeat;
     background-position: center;
-    /* The size of the checkmark icon, you may/may not need this */
     background-size: 25px;
     border-radius: 2px;
     background-color: #bad7ff;
     color: white;
-  }
+}
   
-  /* Adding a dotted border around the active tabbed-into checkbox */
-  input[type="checkbox"]:focus+span:before,
-  input[type="checkbox"]:not(:disabled)+span:hover:before {
-    /* Visible in the full-color space */
-    box-shadow: 0px 0px 0px 2px rgba(0, 150, 255, 1);
-  
-    /* Visible in Windows high-contrast themes
-       box-shadow will be hidden in these modes and
-       transparency will not be hidden in high-contrast
-       thus box-shadow will not show but the outline will
-       providing accessibility */
-    outline-color: transparent; /*switch to transparent*/
+input[type="checkbox"]:focus+span:before,
+input[type="checkbox"]:not(:disabled)+span:hover:before {
+    box-shadow: 0px 0px 0px 2px rgba(0, 150, 255, 1);  
+    outline-color: transparent;
     outline-width: 2px;
     outline-style: dotted;
-    }
+}
+.theme-switch-container {
+    position: fixed; 
+    bottom: 50px;    
+    right: 50px;     
+    z-index: 1000;   
+}
+
+#theme-toggle-button {
+    background-color: var(--bg); 
+    border: none;
+    border-radius: 50%; 
+    width: 50px; 
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px var(--shadow_color);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+}
+
+#theme-toggle-button::before {
+    content: ''; /* Must be present for pseudo-element to render */
+    display: block; /* Make it a block-level element */
+    width: 30px;
+    height: 30px;
+    background-image: url('sun.svg');
+    background-size: contain; 
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: opacity 0.3s ease, transform 0.3s ease; 
+    position: absolute;
+}
+
+/* Moon icon for dark mode */
+body[theme="dark"] #theme-toggle-button {
+    background-color: var(--bg);
+}
+
+body[theme="dark"] #theme-toggle-button::before {
+    background-image: url('moon.svg');
+}
+
+#theme-toggle-button:hover {
+    opacity: 0.9; /* Slight hover effect */
+}

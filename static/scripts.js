@@ -1,6 +1,28 @@
-/* static/scripts.js */
+/* scripts.js */
+console.log('scripts.js loaded');
+
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('scripts.js loaded');
+    console.log('scripts.js: DOMContentLoaded fired');
+
+    // Theme toggle logic from attached file
+    const body = document.body;
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    body.setAttribute('theme', currentTheme);
+
+    const themeToggleButton = document.getElementById('theme-toggle-button');
+
+    if (themeToggleButton) {
+        console.log('scripts.js: Theme toggle button found.');
+        themeToggleButton.addEventListener('click', () => {
+            console.log('scripts.js: Theme toggle button clicked.');
+            const newTheme = body.getAttribute('theme') === 'dark' ? 'light' : 'dark';
+            body.setAttribute('theme', newTheme);
+            localStorage.setItem('theme', newTheme); // Save theme preference
+            console.log('scripts.js: Theme set to', newTheme);
+        });
+    } else {
+        console.error('scripts.js: Theme toggle button not found. Ensure an element with id="theme-toggle-button" exists.');
+    }
 
     // Password generation function
     function generatePassword(length = 12) {

@@ -1,40 +1,76 @@
 /* style.css */
 
+:root{
+    --bg: #EEEEF1;
+    --button_color: #4A71CC;
+    --heading_color: #080D3D;
+    --text_or_border: #747C82;
+    --header_color: #003776;
+    --shadow_color: rgba(0,0,0,0.5);
+    --success_bg: #d1fae5;
+    --success_font: #065f46;
+    --error_bg: #fee2e2;
+    --error_font: #991b1b;
+    --gen_button_color: #0b6634;
+    --show_pwd_color: #080D3D;
+}
+[theme="dark"]{
+    --bg: #11110E;
+    --button_color: #B58E33;
+    --heading_color: #F7F2C2;
+    --text_or_border: rgb(212, 215, 218);
+    --header_color: #FFC889;
+    --shadow_color: #4d3c28;
+    --success_bg: #065f46;
+    --success_font: #d1fae5;
+    --error_bg: #991b1b;
+    --error_font: #fee2e2;
+    --gen_button_color: #99f4b7;
+    --show_pwd_color: #F7F2C2;
+}
+
+
+
 body {
     font-family: 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #EEEEF1;
+    background-color: var(--bg);
     margin: 0;
     padding: 0;
-    color: #080D3D;
-    font-weight: 600
+    color: var(--heading_color);
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .Content {
     max-width: 800px;
     margin: 40px auto;
     padding: 20px;
-    background: #EEEEF1;
+    background: var(--bg);
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 12px var(--shadow_color);
+    transition: background-color 0.3s ease, color 0.3s ease;
     
 }
 
 h1 {
     text-align: center;
-    color: #080D3D;
+    color: var(--heading_color);
     font-family: 'Segoe UI';
     font-size: 48px;
     font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a {
-    color: #4A71CC;
+    color: var(--button_color);
     text-decoration: none;
     margin: 0 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a:hover {
     text-decoration: underline;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 form {
@@ -42,31 +78,36 @@ form {
     flex-direction: column;
     gap: 12px;
     margin-top: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 input[type="text"],
 input[type="password"],
 input[type="submit"] {
     padding: 10px;
-    background: #EEEEF1;
-    border: 2px solid #747C82;
+    background: var(--bg);
+    color: var(--heading_color);
+    border: 2px solid var(--text_or_border);
     border-radius: 8px;
     font-size: 14px;
     font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 input[type="submit"] {
-    background-color: #003776;
-    color: #EEEEF1;
+    background-color: var(--button_color);
+    color: var(--bg);
     border: none;
     cursor: pointer;
     transition: background 0.2s ease;
     font-weight: 600;
     font-size: medium;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 input[type="submit"]:hover {
-    background-color: #003776;
+    background-color: var(--button_color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .password-container {
@@ -74,99 +115,112 @@ input[type="submit"]:hover {
     align-items: center;
     gap: 10px;
     margin-top: -10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .generate-btn {
     padding: 8px 12px;
-    background-color: #0b6634;
+    background-color: var(--gen_button_color);
     border: none;
     border-radius: 8px;
-    color: #EEEEF1;
+    color: var(--bg);
     cursor: pointer;
-    font-weight: 600
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .generate-btn:hover {
-    background-color: #0b6634;
+    background-color: var(--gen_button_color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .show-password {
     font-size: 14px;
-    color: #444;
+    color: var(--text_or_border);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 table {
     width: 100%;
     margin-top: 30px;
     border-collapse: collapse;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 th, td {
     padding: 12px 10px;
     text-align: center;
     border-bottom: 1px solid #e5e7eb;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 th {
-    background-color: #003776;
-    color: #EEEEF1;
+    background-color: var(--header_color);
+    color: var(--bg);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .message {
     padding: 10px;
     border-radius: 6px;
     margin: 10px 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .message.success {
-    background-color: #d1fae5;
-    color: #065f46;
+    background-color: var(--success_bg);
+    color: var(--success_font);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .message.error {
-    background-color: #fee2e2;
-    color: #991b1b;
+    background-color: var(--error_bg);
+    color: var(--error_font);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .password-hidden {
     font-family:"Segoe UI";
     cursor: pointer;
     font-weight: 700;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .update-button{
-    background-color: #003776;
+    background-color: var(--button_color);
     border-radius: 8px;
-    color:#EEEEF1;
-    font-weight: 500;
+    color:var(--bg);
+    font-weight: 600;
     padding: 8px 12px 8px 12px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 .delete-button{
     background-color: #eb2525;
     border-radius: 8px;
-    color:#ffffff;
-    font-weight: 500;
+    color:var(--bg);
+    font-weight: 600;
     padding: 8px 12px 8px 12px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     z-index: -1;
-  }
+}
   
-  /* Text color for the label */
-  input[type="checkbox"]+span {
+/* Text color for the label */
+input[type="checkbox"]+span {
     cursor: pointer;
     font: 16px sans-serif;
-    color: black;
+    color: var(--show_pwd_color);
     font-weight: 600;
-  }
+}
   
-  /* Checkbox un-checked style */
-  input[type="checkbox"]+span:before {
-    content: '';
-    border: 1px solid rgb(0, 0, 0);
+/* Checkbox un-checked style */
+input[type="checkbox"]+span:before {
+    content: '';    
+    border: 1px solid var(--text_or_border);
     border-radius: 3px;
     display: inline-block;
     width: 16px;
@@ -174,33 +228,72 @@ input[type="checkbox"] {
     margin-right: 0.5em;
     margin-top: 0.5em;
     vertical-align: -2px;
-  }
+}
   
-  /* Checked checkbox style (in this case the background is green #e7ffba, change this to change the color) */
-  input[type="checkbox"]:checked+span:before {
-    /* NOTE: Replace the url with a path to an SVG of a checkmark to get a checkmark icon */
+input[type="checkbox"]:checked+span:before {
     background-image: url('tickbox.svg');
     background-repeat: no-repeat;
     background-position: center;
-    /* The size of the checkmark icon, you may/may not need this */
     background-size: 10px;
     border-radius: 2px;
     background-color: #bad7ff;
     color: white;
-  }
+}
   
-  /* Adding a dotted border around the active tabbed-into checkbox */
-  input[type="checkbox"]:focus+span:before,
-  input[type="checkbox"]:not(:disabled)+span:hover:before {
-    /* Visible in the full-color space */
+input[type="checkbox"]:focus+span:before,
+input[type="checkbox"]:not(:disabled)+span:hover:before {
     box-shadow: 0px 0px 0px 2px rgba(0, 150, 255, 1);
-  
-    /* Visible in Windows high-contrast themes
-       box-shadow will be hidden in these modes and
-       transparency will not be hidden in high-contrast
-       thus box-shadow will not show but the outline will
-       providing accessibility */
-    outline-color: transparent; /*switch to transparent*/
+    outline-color: transparent;
     outline-width: 2px;
     outline-style: dotted;
-    }
+}
+
+.theme-switch-container {
+    position: fixed; 
+    bottom: 50px;    
+    right: 50px;     
+    z-index: 1000;   
+}
+
+#theme-toggle-button {
+    background-color: var(--bg); 
+    border: none;
+    border-radius: 50%; 
+    width: 50px; 
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px var(--shadow_color);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+}
+
+#theme-toggle-button::before {
+    content: ''; /* Must be present for pseudo-element to render */
+    display: block; /* Make it a block-level element */
+    width: 30px;
+    height: 30px;
+    background-image: url('sun.svg');
+    background-size: contain; 
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: opacity 0.3s ease, transform 0.3s ease; 
+    position: absolute;
+}
+
+/* Moon icon for dark mode */
+body[theme="dark"] #theme-toggle-button {
+    background-color: var(--bg);
+}
+
+body[theme="dark"] #theme-toggle-button::before {
+    background-image: url('moon.svg');
+}
+
+#theme-toggle-button:hover {
+    opacity: 0.9; /* Slight hover effect */
+}

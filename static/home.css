@@ -1,51 +1,84 @@
 /* static/home.css */
+
+/*light mode (default)*/
+:root{
+    --bg: #EEEEF1;
+    --button_color: #4A71CC;
+    --heading_color: #080D3D;
+    --text_or_border: #747C82;
+    --header_color: #003776;
+    --shadow_color: rgba(0,0,0,0.5);
+    --success_bg: #d1fae5;
+    --success_font: #065f46;
+    --error_bg: #fee2e2;
+    --error_font: #991b1b;
+}
+[theme="dark"]{
+    --bg: #11110E;
+    --button_color: #B58E33;
+    --heading_color: #F7F2C2;
+    --text_or_border: rgb(212, 215, 218);
+    --header_color: #FFC889;
+    --shadow_color: #4d3c28;
+    --success_bg: #065f46;
+    --success_font: #d1fae5;
+    --error_bg: #991b1b;
+    --error_font: #fee2e2;
+}
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background-color: #eeeef1;
-    color: #080D3D;
+    background-color: var(--bg);
+    color: var(--heading_color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #003776;
+    background: var(--header_color);
     padding: 1rem 2rem;
-    box-shadow: 11 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 11 1px 3px var(--shadow_color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .logo {
     font-weight: bold;
     font-size: 1.5rem;
-    color: #eeeef1;
+    color: var(--bg);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .nav-links .btn {
     margin-left: 1rem;
     padding: 0.6rem 1.2rem;
     border: none;
-    background: #EEEEF1;
-    color: #003776;
+    background: var(--bg);
+    color: var(--header_color);
     text-decoration: none;
     font-weight: 500;
     border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .hero {
     text-align: center;
     padding: 5rem 2rem;
-    background: #EEEEF1;
+    background: var(--bg);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 .hero h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .hero p {
     font-size: 1.1rem;
-    color: #747C82;
+    color: var(--text_or_border);
     margin-bottom: 2rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .actions .btn {
@@ -56,9 +89,59 @@ body {
     text-decoration: none;
     border-radius: 4px;
     border: none;
-    color: #eeeef1;
-    background: #4A71CC;
+    color: var(--bg);
+    background: var(--button_color);
     width: 100px;
     height: 22px;
     font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.theme-switch-container {
+    position: fixed; 
+    bottom: 50px;    
+    right: 50px;     
+    z-index: 1000;   
+}
+
+#theme-toggle-button {
+    background-color: var(--bg); 
+    border: none;
+    border-radius: 50%; 
+    width: 50px; 
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px var(--shadow_color);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+}
+
+#theme-toggle-button::before {
+    content: ''; /* Must be present for pseudo-element to render */
+    display: block; /* Make it a block-level element */
+    width: 30px;
+    height: 30px;
+    background-image: url('sun.svg');
+    background-size: contain; 
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: opacity 0.3s ease, transform 0.3s ease; 
+    position: absolute;
+}
+
+/* Moon icon for dark mode */
+body[theme="dark"] #theme-toggle-button {
+    background-color: var(--bg);
+}
+
+body[theme="dark"] #theme-toggle-button::before {
+    background-image: url('moon.svg');
+}
+
+#theme-toggle-button:hover {
+    opacity: 0.9; /* Slight hover effect */
 }
